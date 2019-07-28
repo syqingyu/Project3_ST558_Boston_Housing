@@ -1,5 +1,8 @@
 library(markdown)
 
+# Load data in ui.R to avoid "object not found error"
+BostonHousing <- read.csv('BostonHousing.csv')
+
 navbarPage("Boston Housing",
            tabPanel("Home",
                     img(class="img-kggle",

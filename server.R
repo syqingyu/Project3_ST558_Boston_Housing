@@ -7,10 +7,9 @@ library(tidyverse)
 library(caret)
 library(ggplot2)
 
+BostonHousing <- read.csv('BostonHousing.csv')
+
 function(input, output, session) {
-    
-    BostonHousing <- read.csv('BostonHousing.csv')
-    
     
     # Output histogram plot
     output$histPlot <- renderPlot({
