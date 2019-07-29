@@ -34,6 +34,12 @@ function(input, output, session) {
         }
     )
     
+    # Output data for selected variable
+    output$selectedData <- DT::renderDataTable({
+        tmp <- as.data.frame(BostonHousing[, input$variableName])
+        colnames(tmp) <- input$variableName
+        DT::datatable(tmp)
+    })
     
     # Output numerical summary
     output$summary <- renderPrint({
@@ -303,10 +309,14 @@ function(input, output, session) {
     
     # Output user input summary
     output$userInputresult <- renderPrint({
-        df <- as.data.frame(t(userInput()))
-        colnames(df) <- input$inputVars
-        prediction <- predict(trainResult(), newdata = df)
-        cat(prediction)
+        if (is.null(input$inputVars)) {
+            return("Please select at least one predictor.")
+        } else {
+            df <- as.data.frame(t(userInput()))
+            colnames(df) <- input$inputVars
+            prediction <- predict(trainResult(), newdata = df)
+            cat(prediction)
+        }
     })
     
     # Download data

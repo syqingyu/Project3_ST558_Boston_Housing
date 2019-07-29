@@ -8,9 +8,6 @@ navbarPage("Boston Housing",
                     img(class="img-kggle",
                         src="https://storage.googleapis.com/kaggle-competitions/kaggle/5315/logos/front_page.png"
                     ),
-                    # tags$small("Source: ", 
-                    #            a(href="https://www.kaggle.com/c/boston-housing", "Kaggle")
-                    # ),
                     includeMarkdown("home.md")
            ),
            tabPanel("Data Exploration",
@@ -26,7 +23,9 @@ navbarPage("Boston Housing",
                             verbatimTextOutput("summary"),
                             h4("Historgram"),
                             plotOutput("histPlot"),
-                            downloadButton("download_histplot", "Save image")
+                            downloadButton("download_histplot", "Save image"),
+                            h4("Data"),
+                            DT::dataTableOutput("selectedData")
                         )
                     )
            ),
