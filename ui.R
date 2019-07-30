@@ -25,11 +25,12 @@ navbarPage("Boston Housing",
                             plotOutput("histPlot"),
                             downloadButton("download_histplot", "Save image"),
                             h4("Data"),
-                            DT::dataTableOutput("selectedData")
+                            DT::dataTableOutput("selectedData"),
+                            downloadButton("download_selectedData", "Save data")
                         )
                     )
            ),
-           tabPanel("Exploratory Analysis",
+           tabPanel("PCA Analysis",
                     sidebarLayout(
                         sidebarPanel(
                             checkboxGroupInput("showVars", "Please select variables for Principal Component Analysis:",
@@ -41,7 +42,10 @@ navbarPage("Boston Housing",
                             uiOutput('PCAmath'),
                             verbatimTextOutput("PCAinfo"),
                             plotOutput("biPlot"),
-                            downloadButton("download_biplot", "Save image")
+                            downloadButton("download_biplot", "Save image"),
+                            h4("Data"),
+                            DT::dataTableOutput("PCAData"),
+                            downloadButton("download_PCAData", "Save data")
                         )
                     )
            ),

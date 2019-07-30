@@ -46,6 +46,16 @@ function(input, output, session) {
         summary(BostonHousing[, input$variableName])
     })
     
+    
+    # Download selected data
+    output$download_selectedData <- downloadHandler(
+        filename = "selected_data.csv",
+        content = function(file) {
+            tmp <- as.data.frame(BostonHousing[, input$variableName])
+            colnames(tmp) <- input$variableName
+            write.csv(tmp, file, row.names = FALSE)
+        })
+    
     # Output PCA math using MathJax
     output$PCAmath <- renderUI({
         withMathJax(
@@ -90,6 +100,23 @@ function(input, output, session) {
             dev.off()
             }
         )
+    
+    # Output data for selected variable
+    output$PCAData <- DT::renderDataTable({
+        tmp <- as.data.frame(BostonHousing[, input$showVars])
+        colnames(tmp) <- input$showVars
+        DT::datatable(tmp)
+    })
+    
+    # Download selected data
+    output$download_PCAData <- downloadHandler(
+        filename = "PCA_data.csv",
+        content = function(file) {
+            tmp <- as.data.frame(BostonHousing[, input$showVars])
+            colnames(tmp) <- input$showVars
+            write.csv(tmp, file, row.names = FALSE)
+        })
+    
     
     # Split data into training and testing
     trainIndex <- reactive({ 
